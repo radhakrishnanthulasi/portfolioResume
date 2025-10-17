@@ -1,0 +1,1819 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Radhakrishnan Thulasi | Geospatial Researcher</title>
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1e40af;
+            --secondary: #0f172a;
+            --accent: #059669;
+            --light: #f8fafc;
+            --esri-blue: #2C5AA0;
+            /* Official Esri Blue */
+            --esri-dark-blue: #1E3A73;
+            /* Darker Esri Blue for hover */
+            --esri-light-blue: #e8eff9;
+            /* Light blue for Esri container */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #334155;
+        }
+
+        .cartographic-bg {
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)),
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none" stroke="%231e40af" stroke-width="0.5" stroke-dasharray="2,2"/><circle cx="50" cy="50" r="2" fill="%231e40af" opacity="0.2"/></svg>');
+        }
+
+        .header-gradient {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+
+        .section-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            border: 1px solid #e2e8f0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
+        }
+
+        .skill-level {
+            height: 6px;
+            border-radius: 3px;
+            background-color: #e2e8f0;
+            overflow: hidden;
+        }
+
+        .skill-level-fill {
+            height: 100%;
+            border-radius: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 24px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--primary);
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 4px;
+            top: 18px;
+            width: 2px;
+            height: calc(100% + 6px);
+            background-color: #e2e8f0;
+        }
+
+        .timeline-item:last-child::after {
+            display: none;
+        }
+
+        .publication-item {
+            border-left: 3px solid var(--primary);
+            padding-left: 16px;
+            margin-bottom: 20px;
+        }
+
+        .visitor-counter {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-link {
+            position: relative;
+            padding: 8px 0;
+            color: #cbd5e1;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: white;
+        }
+
+        .nav-link.active {
+            color: white;
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: white;
+        }
+
+        .grid-pattern {
+            background-image:
+                linear-gradient(rgba(30, 64, 175, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(30, 64, 175, 0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .profile-image {
+            border: 4px solid white;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .award-item {
+            border-left: 3px solid var(--accent);
+            padding-left: 16px;
+            margin-bottom: 16px;
+        }
+
+        .contact-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.25rem;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .section-title i {
+            margin-right: 0.75rem;
+            color: var(--primary);
+        }
+
+        .floating-sidebar {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 40;
+        }
+
+        /* Mobile responsive styles */
+        @media (max-width: 768px) {
+            .floating-sidebar {
+                display: none;
+            }
+
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            .section-card {
+                padding: 1rem;
+            }
+
+            .timeline-item {
+                padding-left: 20px;
+            }
+
+            .timeline-item::before {
+                width: 8px;
+                height: 8px;
+            }
+
+            .timeline-item::after {
+                left: 3px;
+            }
+
+            .visitor-counter {
+                font-size: 0.75rem;
+                padding: 4px 8px;
+            }
+
+            .profile-image-container {
+                width: 200px;
+                height: 200px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .hero-buttons a,
+            .hero-buttons button {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .header-title {
+                text-align: center;
+            }
+
+            .visitor-counter {
+                align-self: center;
+            }
+
+            .section-title {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.5rem;
+            }
+
+            .section-title i {
+                margin-right: 0;
+            }
+
+            .grid-cols-1-md-grid-cols-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .education-grid,
+            .awards-grid,
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .publication-item,
+            .award-item {
+                padding-left: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .profile-image-container {
+                width: 150px;
+                height: 150px;
+            }
+
+            .hero-title {
+                font-size: 1.75rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.125rem;
+            }
+
+            .section-title h2 {
+                font-size: 1.5rem;
+            }
+
+            .badge {
+                font-size: 0.7rem;
+                padding: 3px 8px;
+            }
+        }
+
+        .skill-category {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            border: 1px solid #e2e8f0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
+        }
+
+        .skill-category-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1.25rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .skill-category-icon {
+            background: rgba(255, 255, 255, 0.2);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-size: 1.25rem;
+        }
+
+        .skills-container {
+            padding: 1.5rem;
+        }
+
+        .skill-tag {
+            display: inline-flex;
+            align-items: center;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 0.5rem 1rem;
+            margin: 0.375rem;
+            font-size: 0.875rem;
+            color: #475569;
+            transition: all 0.2s ease;
+        }
+
+        .skill-tag:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .skill-tag i {
+            margin-right: 0.5rem;
+            font-size: 1rem;
+        }
+
+
+        .courses-toggle:checked~#more-courses {
+            display: block;
+        }
+
+        .courses-toggle:checked~.view-more-label .view-more-text {
+            display: none;
+        }
+
+        .courses-toggle:checked~.view-more-label .view-less-text {
+            display: inline;
+        }
+
+        .view-less-text {
+            display: none;
+        }
+
+
+        /* Esri Products - Official Esri Blue */
+        .skill-tag.esri {
+            background: var(--esri-blue);
+            color: white;
+            border-color: var(--esri-blue);
+        }
+
+        /* Esri Suite Container */
+        .esri-suite-container {
+            background: var(--esri-light-blue);
+            border: 1px solid #c2d4f0;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .esri-suite-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .esri-suite-icon {
+            background: var(--esri-blue);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0.75rem;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .esri-suite-title {
+            font-weight: 600;
+            color: var(--esri-blue);
+            font-size: 1.125rem;
+        }
+
+        .esri-suite-subtitle {
+            color: #64748b;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+
+        .skill-tag.esri:hover {
+            background: var(--esri-dark-blue);
+            border-color: var(--esri-dark-blue);
+        }
+
+        /* AWS Services */
+        .skill-tag.aws {
+            background: #ff9900;
+            color: white;
+            border-color: #ff9900;
+        }
+
+        .skill-tag.aws:hover {
+            background: #e68a00;
+            border-color: #e68a00;
+        }
+
+        /* Programming Languages */
+        .skill-tag.python {
+            background: #3776ab;
+            color: white;
+            border-color: #3776ab;
+        }
+
+        .skill-tag.python:hover {
+            background: #2d6391;
+            border-color: #2d6391;
+        }
+
+        .skill-tag.r {
+            background: #276dc3;
+            color: white;
+            border-color: #276dc3;
+        }
+
+        .skill-tag.r:hover {
+            background: #1f5aa3;
+            border-color: #1f5aa3;
+        }
+
+        .skill-tag.js {
+            background: #f7df1e;
+            color: #323330;
+            border-color: #f7df1e;
+        }
+
+        .skill-tag.js:hover {
+            background: #e6cf1a;
+            border-color: #e6cf1a;
+        }
+
+        .skill-tag.html {
+            background: #e34f26;
+            color: white;
+            border-color: #e34f26;
+        }
+
+        .skill-tag.html:hover {
+            background: #d0451f;
+            border-color: #d0451f;
+        }
+
+        .skill-tag.css {
+            background: #1572b6;
+            color: white;
+            border-color: #1572b6;
+        }
+
+        .skill-tag.css:hover {
+            background: #1265a0;
+            border-color: #1265a0;
+        }
+
+        /* Databases */
+        .skill-tag.postgres {
+            background: #336791;
+            color: white;
+            border-color: #336791;
+        }
+
+        .skill-tag.postgres:hover {
+            background: #2c5a7d;
+            border-color: #2c5a7d;
+        }
+
+        /* GIS Tools */
+        .skill-tag.qgis {
+            background: #5c8bbc;
+            color: white;
+            border-color: #5c8bbc;
+        }
+
+        .skill-tag.qgis:hover {
+            background: #4f7aa5;
+            border-color: #4f7aa5;
+        }
+
+        .skill-tag.snap {
+            background: #0b4f8c;
+            color: white;
+            border-color: #0b4f8c;
+        }
+
+        .skill-tag.snap:hover {
+            background: #094376;
+            border-color: #094376;
+        }
+
+        .skill-tag.fme {
+            background: #ff6b35;
+            color: white;
+            border-color: #ff6b35;
+        }
+
+        .skill-tag.fme:hover {
+            background: #e65a2b;
+            border-color: #e65a2b;
+        }
+
+        /* Other GIS Tools */
+        .skill-tag.erdas {
+            background: #8B4513;
+            color: white;
+            border-color: #8B4513;
+        }
+
+        .skill-tag.erdas:hover {
+            background: #734210;
+            border-color: #734210;
+        }
+
+        .skill-tag.terrset {
+            background: #2E8B57;
+            color: white;
+            border-color: #2E8B57;
+        }
+
+        .skill-tag.terrset:hover {
+            background: #267749;
+            border-color: #267749;
+        }
+
+        .skill-tag.fragstats {
+            background: #6A5ACD;
+            color: white;
+            border-color: #6A5ACD;
+        }
+
+        .skill-tag.fragstats:hover {
+            background: #5b4cb5;
+            border-color: #5b4cb5;
+        }
+
+        @media (max-width: 768px) {
+            .skill-category-header {
+                padding: 1rem;
+            }
+
+            .skill-category-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+
+            .skills-container {
+                padding: 1.25rem;
+            }
+
+            .skill-tag {
+                padding: 0.375rem 0.75rem;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Mobile navigation */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            z-index: 100;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .mobile-nav-link {
+            color: white;
+            font-size: 1.5rem;
+            margin: 1rem 0;
+            padding: 0.5rem 1rem;
+            text-align: center;
+        }
+
+        .close-menu {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            color: white;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+        }
+    </style>
+</head>
+
+<body class="grid-pattern">
+    <!-- Floating Social Media Sidebar (Right Side) -->
+    <div class="floating-sidebar">
+        <div class="bg-white rounded-lg shadow-lg p-4 flex flex-col space-y-4">
+            <a href="https://scholar.google.com/citations?user=e-mmes0AAAAJ&hl=en&oi=ao"
+                class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 hover:bg-blue-200 transition-colors"
+                title="Google Scholar">
+                <i class="fab fa-google"></i>
+            </a>
+            <a href="https://orcid.org/0000-0002-0015-606X"
+                class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 hover:bg-blue-200 transition-colors"
+                title="ORCiD">
+                <i class="fab fa-orcid"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/rkthulasi/"
+                class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 hover:bg-blue-200 transition-colors"
+                title="LinkedIn">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="#"
+                class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 hover:bg-blue-200 transition-colors"
+                title="ResearchGate">
+                <i class="fab fa-researchgate"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="close-menu" id="closeMenu">
+            <i class="fas fa-times"></i>
+        </button>
+        <a href="#about" class="mobile-nav-link">About</a>
+        <a href="#experience" class="mobile-nav-link">Experience</a>
+        <a href="#education" class="mobile-nav-link">Education</a>
+        <a href="#skills" class="mobile-nav-link">Skills</a>
+        <a href="#awards" class="mobile-nav-link">Awards</a>
+        <!-- <a href="#projects" class="mobile-nav-link">Projects</a> -->
+        <a href="#publications" class="mobile-nav-link">Publications</a>
+        <!-- <a href="#contact" class="mobile-nav-link">Contact</a> -->
+    </div>
+
+    <!-- Header -->
+    <header class="header-gradient text-white sticky top-0 z-50 shadow-md">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center header-content">
+                <div class="flex items-center space-x-3 header-title">
+                    <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold">Dr. Radhakrishnan Thulasi</h1>
+                        <p class="text-sm text-blue-100">Geospatial Researcher</p>
+                    </div>
+                </div>
+
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#about" class="nav-link active">About</a>
+                    <a href="#experience" class="nav-link">Experience</a>
+                    <a href="#education" class="nav-link">Education</a>
+                    <a href="#skills" class="nav-link">Skills</a>
+                    <a href="#awards" class="nav-link">Awards</a>
+                    <!-- <a href="#projects" class="nav-link">Projects</a> -->
+                    <a href="#publications" class="nav-link">Publications</a>
+                </nav>
+
+                <div class="visitor-counter">
+                    <i class="fas fa-users"></i>
+                    <span id="visitor-count">Loading...</span>
+                </div>
+
+                <button class="md:hidden text-white" id="mobileMenuButton">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="about" class="py-12 md:py-16 cartographic-bg">
+        <div class="container mx-auto px-4">
+            <div class="max-w-6xl mx-auto">
+                <div class="flex flex-col lg:flex-row items-center gap-8 md:gap-12">
+                    <div class="lg:w-2/5 flex justify-center">
+                        <div class="relative">
+                            <!-- Profile Picture Placeholder -->
+                            <div
+                                class="w-48 h-48 md:w-64 md:h-64 rounded-full profile-image overflow-hidden bg-gray-100 flex items-center justify-center profile-image-container">
+                                <img src="DrRK_Pic_Cropped1.png"
+                                    alt="Dr Radhakrishnan Thulasi - GIS & Remote Sensing Specialist"
+                                    class="w-full h-full object-cover"
+                                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <!-- Fallback in case image fails to load -->
+                                <div class="text-center hidden">
+                                    <i class="fas fa-user text-4xl md:text-6xl text-blue-500 mb-2"></i>
+                                    <p class="text-xs md:text-sm text-gray-500">Profile Image</p>
+                                </div>
+                            </div>
+                            <div
+                                class="absolute -bottom-2 -right-2 bg-green-500 text-white rounded-full w-8 h-8 md:w-12 md:h-12 flex items-center justify-center">
+                                <i class="fas fa-award text-xs md:text-base"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:w-3/5">
+                        <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-2 hero-title">Dr. Radhakrishnan
+                            Thulasi</h1>
+                        <h2 class="text-lg md:text-xl text-blue-600 font-medium mb-4 hero-subtitle">Geospatial
+                            Researcher & Environmental Scientist</h2>
+
+                        <div class="bg-white section-card p-4 md:p-6 mb-6">
+                            <p class="text-gray-700 text-sm md:text-base">
+                                Results-driven Geospatial Researcher with a PhD in Environmental Sciences and dual
+                                Master's degrees in Geography and Environmental Sciences. Esri Young Scholar Award
+                                recipient with expertise in remote sensing, GIS, and applied environmental research.
+                            </p>
+                        </div>
+
+                        <div class="flex flex-wrap gap-2 md:gap-3 mb-6">
+                            <div class="badge bg-blue-500">PhD Environmental Sciences</div>
+                            <div class="badge bg-green-500">Esri Young Scholar</div>
+                            <div class="badge bg-purple-500">UGC-NET Qualified</div>
+                            <div class="badge bg-amber-500">GIS Specialist</div>
+                        </div>
+
+                        <div class="flex flex-wrap gap-3 md:gap-4 hero-buttons">
+                            <a href="#contact"
+                                class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 md:px-6 md:py-3 rounded-lg font-medium transition-colors flex items-center text-sm md:text-base">
+                                Contact Me
+                            </a>
+                            <a href="#projects"
+                                class="border border-blue-600 text-blue-600 hover:bg-blue-50 px-4 py-2 md:px-6 md:py-3 rounded-lg font-medium transition-colors flex items-center text-sm md:text-base">
+                                View Projects
+                            </a>
+                            <a href="01_CV_Dr_Radhakrishnan_Thulasi.pdf" download
+                                class="border border-gray-300 text-gray-700 hover:bg-gray-50 px-4 py-2 md:px-6 md:py-3 rounded-lg font-medium transition-colors flex items-center text-sm md:text-base">
+                                <i class="fas fa-download mr-2"></i> Download Resume
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="py-8 md:py-12 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="max-w-6xl mx-auto">
+                <!-- Professional Experience -->
+                <section id="experience" class="mb-8 md:mb-12">
+                    <div class="section-title">
+                        <i class="fas fa-briefcase text-xl md:text-2xl"></i>
+                        <h2 class="text-xl md:text-2xl font-bold text-gray-900">Professional Experience</h2>
+                    </div>
+
+                    <div class="section-card p-4 md:p-6">
+                        <div class="space-y-6">
+                            <div class="timeline-item">
+                                <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-2">
+                                    <h3 class="text-lg font-bold text-gray-900">Environmental Consultant</h3>
+                                    <span
+                                        class="text-sm text-blue-600 font-medium bg-blue-50 px-2 py-1 rounded mt-1 md:mt-0">June
+                                        2025 - Present</span>
+                                </div>
+                                <p class="text-gray-600 font-medium mb-3">Neeyal EnviroSolutions • Coimbatore, India</p>
+                                <ul class="list-disc pl-5 text-gray-700 space-y-2 text-sm md:text-base">
+                                    <li>Lead a full-cycle environmental consultancy serving industries, municipalities,
+                                        and research institutions.</li>
+                                    <li>Oversee projects in regulatory compliance, including Consent to Establish (CTE),
+                                        Consent to Operate (CTO), and Renewal of Consent (RCO) under TNPCB/CPCB norms.
+                                    </li>
+                                    <li>Provide expert solutions for EPR compliance across plastic, e-waste, battery,
+                                        used oil, and hazardous waste sectors.</li>
+                                    <li>Manage waste audits, environmental monitoring, and GIS-based spatial analysis
+                                        for environmental planning.</li>
+                                    <li>Develop strategic partnerships and technology-enabled compliance tracking
+                                        systems for clients</li>
+                                </ul>
+                            </div>
+
+                            <div class="timeline-item">
+                                <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-2">
+                                    <h3 class="text-lg font-bold text-gray-900">Doctoral Fellow</h3>
+                                    <span
+                                        class="text-sm text-blue-600 font-medium bg-blue-50 px-2 py-1 rounded mt-1 md:mt-0">February
+                                        2024 - December 2024</span>
+                                </div>
+                                <p class="text-gray-600 font-medium mb-3">Indian Council of Social Science Research
+                                    (ICSSR) • Coimbatore, India</p>
+                                <ul class="list-disc pl-5 text-gray-700 space-y-2 text-sm md:text-base">
+                                    <li>Led participatory GIS study on household waste management, achieving a 98.7%
+                                        response rate using
+                                        <a href="https://survey123.arcgis.com/share/188befeff4e84090adb841b6427c9878"
+                                            class="text-blue-600 hover:text-blue-800 text-xs md:text-sm inline-flex items-center">
+                                            <i class="fas fa-external-link-alt mr-1"></i>ArcGIS Survey123</a> and Field
+                                        Maps.
+                                    </li>
+                                    <li>Implemented real-time data monitoring via
+                                        <a href="https://www.arcgis.com/apps/dashboards/a090bbccbe1f4a518dd958717bde0ee3"
+                                            class="text-blue-600 hover:text-blue-800 text-xs md:text-sm inline-flex items-center">
+                                            <i class="fas fa-external-link-alt mr-1"></i>ArcGIS Dashboard</a>, improving
+                                        field data collection efficiency for 850+ households.
+                                    </li>
+                                    <li>Created interactive
+                                        <a href="https://arcg.is/05WaeD"
+                                            class="text-blue-600 hover:text-blue-800 text-xs md:text-sm inline-flex items-center">
+                                            <i class="fas fa-external-link-alt mr-1"></i>ArcGIS Story Maps</a> (using
+                                        Experience Builder) to communicate research findings to diverse stakeholders
+                                        effectively.
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="timeline-item">
+                                <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-2">
+                                    <h3 class="text-lg font-bold text-gray-900">Project Fellow</h3>
+                                    <span
+                                        class="text-sm text-blue-600 font-medium bg-blue-50 px-2 py-1 rounded mt-1 md:mt-0">April
+                                        2021 - September 2022</span>
+                                </div>
+                                <p class="text-gray-600 font-medium mb-3">Bharathiar University (DST PURSE Phase - II) •
+                                    Coimbatore, India</p>
+                                <ul class="list-disc pl-5 text-gray-700 space-y-2 text-sm md:text-base">
+                                    <li>Analyzed 30 years of urban expansion in Coimbatore City (1990-2020) using
+                                        Landsat imagery (4-5, 7, 8), quantifying sprawl via Shannon Entropy, Urban
+                                        Expansion Intensity Index (UEII), and landscape metrics.</li>
+                                    <li>Conducted multi-temporal Land Use and Land Cover (LULC) classification for
+                                        Ambasamudram, Tamil Nadu, India, leveraging Sentinel-1 (Optical) and Sentinel-2
+                                        (Synthetic Aperture Radar) data fusion and optical derivative indices.</li>
+                                    <li>Evaluated surface urban heat island (SUHI) effects in Coimbatore City using
+                                        Landsat 7 & 8, correlating land surface temperature (LST) with LULC changes to
+                                        identify environmental impacts.</li>
+                                    <li>Identified 11 high garbage vulnerability zones in Coimbatore City using AHP-GIS,
+                                        published in Environmental Science and Pollution Research (2024), and recognized
+                                        with the <a
+                                            href="https://www.esri.co/es-pa/eventos/uc-2024/plenaria/awards#young-scholars-award"
+                                            class="text-blue-600 hover:text-blue-800 text-xs md:text-sm inline-flex items-center">
+                                            <i class="fas fa-external-link-alt mr-1"></i>2023 Esri Young Scholar
+                                            Award.</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="timeline-item">
+                                <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-2">
+                                    <h3 class="text-lg font-bold text-gray-900">Field Assistant (SWM Project)</h3>
+                                    <span
+                                        class="text-sm text-blue-600 font-medium bg-blue-50 px-2 py-1 rounded mt-1 md:mt-0">November
+                                        2020 - February 2021</span>
+                                </div>
+                                <p class="text-gray-600 font-medium mb-3">Bharathiar University • Coimbatore, India</p>
+                                <ul class="list-disc pl-5 text-gray-700 space-y-2 text-sm md:text-base">
+                                    <li>Provided GIS consultation to Coimbatore City Municipal Corporation on MSW
+                                        management strategies.</li>
+                                    <li>Conducted a city-wide MSW quantification study, estimating 950 tons/day of waste
+                                        generation.</li>
+                                    <li>Produced technical reports with LaTeX, including data visualizations and
+                                        statistical analysis, published in the Journal of Material Cycles and Waste
+                                        Management (2024).</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Education -->
+                <section id="education" class="mb-8 md:mb-12">
+                    <div class="section-title">
+                        <i class="fas fa-graduation-cap text-xl md:text-2xl"></i>
+                        <h2 class="text-xl md:text-2xl font-bold text-gray-900">Educational Qualifications</h2>
+                    </div>
+
+                    <div class="section-card p-4 md:p-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 education-grid">
+                            <div
+                                class="p-3 md:p-4 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors">
+                                <h3 class="font-bold text-gray-900 text-base md:text-lg">Doctor of Philosophy (PhD)</h3>
+                                <p class="text-gray-600 text-sm md:text-base">Environmental Sciences</p>
+                                <p class="text-gray-500 text-xs md:text-sm mt-1">Bharathiar University</p>
+                                <p class="text-gray-500 text-xs md:text-sm">January 2021 - December 2024</p>
+                            </div>
+
+                            <div
+                                class="p-3 md:p-4 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors">
+                                <h3 class="font-bold text-gray-900 text-base md:text-lg">Master of Science (MSc)</h3>
+                                <p class="text-gray-600 text-sm md:text-base">Environmental Sciences</p>
+                                <p class="text-gray-500 text-xs md:text-sm mt-1">Bharathiar University</p>
+                                <p class="text-gray-500 text-xs md:text-sm">June 2020 - May 2022</p>
+                            </div>
+
+                            <div
+                                class="p-3 md:p-4 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors">
+                                <h3 class="font-bold text-gray-900 text-base md:text-lg">Master of Science (MSc)</h3>
+                                <p class="text-gray-600 text-sm md:text-base">Geography</p>
+                                <p class="text-gray-500 text-xs md:text-sm mt-1">Government Arts College, Bharathiar
+                                    University</p>
+                                <p class="text-gray-500 text-xs md:text-sm">July 2018 - April 2020 • CGPA: 8.4 (Rank)
+                                </p>
+                            </div>
+
+                            <div
+                                class="p-3 md:p-4 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors">
+                                <h3 class="font-bold text-gray-900 text-base md:text-lg">Bachelor of Science (BSc)</h3>
+                                <p class="text-gray-600 text-sm md:text-base">Geography</p>
+                                <p class="text-gray-500 text-xs md:text-sm mt-1">Government Arts College, Bharathiar
+                                    University</p>
+                                <p class="text-gray-500 text-xs md:text-sm">June 2015 - April 2018 • CGPA: 7.0</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+
+
+                <!-- Skills Section -->
+                <div class="container mx-auto px-4">
+
+                    <section id="skills" class="mb-16">
+                        <div class="flex items-center mb-8 pb-4 border-b border-gray-200">
+                            <i class="fas fa-tools text-2xl text-primary mr-3"></i>
+                            <h2 class="text-2xl font-bold text-gray-900">Technical Skills</h2>
+                        </div>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                            <!-- Remote Sensing & GIS Skills - Row 1, Columns 1-2 -->
+                            <div class="skill-category lg:col-span-2">
+                                <div class="skill-category-header">
+                                    <div class="skill-category-icon">
+                                        <i class="fas fa-globe-americas"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-lg font-bold">Remote Sensing & GIS</h3>
+                                        <p class="text-blue-100 text-sm">Spatial Analysis & Mapping</p>
+                                    </div>
+                                </div>
+                                <div class="skills-container">
+
+                                    <!-- Esri Suite Container -->
+                                    <div class="esri-suite-container">
+                                        <div class="esri-suite-header">
+                                            <div class="esri-suite-icon">
+                                                <i class="fas fa-map"></i>
+                                            </div>
+                                            <div>
+                                                <div class="esri-suite-title">Esri Suite Products</div>
+                                                <div class="esri-suite-subtitle">Comprehensive GIS Platform</div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <span class="skill-tag esri">
+                                                <i class="fas fa-desktop"></i> ArcGIS Pro
+                                            </span>
+                                            <span class="skill-tag esri">
+                                                <i class="fas fa-cloud"></i> ArcGIS Online
+                                            </span>
+                                            <span class="skill-tag esri">
+                                                <i class="fas fa-tachometer-alt"></i> ArcGIS Dashboards
+                                            </span>
+                                            <span class="skill-tag esri">
+                                                <i class="fas fa-book"></i> ArcGIS StoryMaps
+                                            </span>
+                                            <span class="skill-tag esri">
+                                                <i class="fas fa-poll"></i> ArcGIS Survey123
+                                            </span>
+                                            <span class="skill-tag esri">
+                                                <i class="fas fa-map-marker-alt"></i> ArcGIS Field Maps
+                                            </span>
+                                            <span class="skill-tag esri">
+                                                <i class="fas fa-bolt"></i> ArcGIS QuickCapture
+                                            </span>
+                                            <span class="skill-tag esri">
+                                                <i class="fas fa-puzzle-piece"></i> ArcGIS Experience Builder
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <!-- Other GIS Tools -->
+                                    <span class="skill-tag qgis">
+                                        <i class="fas fa-layer-group"></i> QGIS
+                                    </span>
+                                    <span class="skill-tag snap">
+                                        <i class="fas fa-satellite"></i> SNAP (ESA)
+                                    </span>
+                                    <span class="skill-tag fragstats">
+                                        <i class="fas fa-chart-bar"></i> FragStats
+                                    </span>
+                                    <span class="skill-tag erdas">
+                                        <i class="fas fa-satellite"></i> ERDAS Imagine
+                                    </span>
+                                    <span class="skill-tag terrset">
+                                        <i class="fas fa-landmark"></i> TerrSet
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Programming and Database Management Skills - Row 2, Column 1 -->
+                            <div class="skill-category">
+                                <div class="skill-category-header">
+                                    <div class="skill-category-icon">
+                                        <i class="fas fa-code"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-lg font-bold">Programming & Databases</h3>
+                                        <p class="text-blue-100 text-sm">Development & Data Management</p>
+                                    </div>
+                                </div>
+                                <div class="skills-container">
+                                    <span class="skill-tag r">
+                                        <i class="fab fa-r-project"></i> R Programming
+                                    </span>
+                                    <span class="skill-tag python">
+                                        <i class="fab fa-python"></i> Python
+                                    </span>
+                                    <span class="skill-tag js">
+                                        <i class="fab fa-js-square"></i> JavaScript
+                                    </span>
+                                    <span class="skill-tag html">
+                                        <i class="fab fa-html5"></i> HTML
+                                    </span>
+                                    <span class="skill-tag css">
+                                        <i class="fab fa-css3-alt"></i> CSS
+                                    </span>
+                                    <span class="skill-tag postgres">
+                                        <i class="fas fa-database"></i> PostgreSQL
+                                    </span>
+                                    <span class="skill-tag fme">
+                                        <i class="fas fa-exchange-alt"></i> FME
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Cloud Skills - Row 2, Column 2 -->
+                            <div class="skill-category">
+                                <div class="skill-category-header">
+                                    <div class="skill-category-icon">
+                                        <i class="fas fa-cloud"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-lg font-bold">Cloud Computing</h3>
+                                        <p class="text-blue-100 text-sm">AWS Services & Infrastructure</p>
+                                    </div>
+                                </div>
+                                <div class="skills-container">
+                                    <span class="skill-tag aws">
+                                        <i class="fab fa-aws"></i> EC2
+                                    </span>
+                                    <span class="skill-tag aws">
+                                        <i class="fab fa-aws"></i> S3
+                                    </span>
+                                    <span class="skill-tag aws">
+                                        <i class="fab fa-aws"></i> Lambda
+                                    </span>
+                                    <span class="skill-tag aws">
+                                        <i class="fab fa-aws"></i> DynamoDB
+                                    </span>
+                                    <span class="skill-tag aws">
+                                        <i class="fab fa-aws"></i> API Gateway
+                                    </span>
+                                    <span class="skill-tag aws">
+                                        <i class="fab fa-aws"></i> RDS
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Awards and Achievements -->
+                <section id="awards" class="mb-8 md:mb-12">
+                    <div class="section-title">
+                        <i class="fas fa-award text-xl md:text-2xl"></i>
+                        <h2 class="text-xl md:text-2xl font-bold text-gray-900">Awards and Achievements</h2>
+                    </div>
+
+                    <div class="section-card p-4 md:p-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 awards-grid">
+                            <div class="award-item">
+                                <h3 class="font-bold text-gray-900 text-base md:text-lg">Esri Young Scholar Award (2023)
+                                </h3>
+                                <p class="text-gray-600 text-sm md:text-base">Esri User Conference, California, USA</p>
+                                <p class="text-gray-500 text-xs md:text-sm mt-1">San Diego, CA, July 2023</p>
+                            </div>
+
+                            <div class="award-item">
+                                <h3 class="font-bold text-gray-900 text-base md:text-lg">Prof. A. Ramesh Award</h3>
+                                <p class="text-gray-600 text-sm md:text-base">Indian Geographical Society, Chennai,
+                                    India</p>
+                                <p class="text-gray-500 text-xs md:text-sm mt-1">January 2020</p>
+                            </div>
+
+                            <div class="award-item">
+                                <h3 class="font-bold text-gray-900 text-base md:text-lg">Ambassador</h3>
+                                <p class="text-gray-600 text-sm md:text-base">Esri Young Professionals Network</p>
+                                <p class="text-gray-500 text-xs md:text-sm mt-1">March 2024</p>
+                            </div>
+
+                            <div class="award-item">
+                                <h3 class="font-bold text-gray-900 text-base md:text-lg">UGC-NET Qualification</h3>
+                                <p class="text-gray-600 text-sm md:text-base">University Grants Commission</p>
+                                <p class="text-gray-500 text-xs md:text-sm mt-1">December 2019</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Projects -->
+                <section id="projects" class="mb-8 md:mb-12">
+                    <div class="section-title">
+                        <i class="fas fa-project-diagram text-xl md:text-2xl"></i>
+                        <h2 class="text-xl md:text-2xl font-bold text-gray-900">Research Projects</h2>
+                    </div>
+
+                    <div class="section-card p-4 md:p-6">
+                        <div class="space-y-4 md:space-y-6">
+                            <div
+                                class="p-3 md:p-4 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors">
+                                <h3 class="text-base md:text-lg font-bold text-gray-900 mb-1">PhD Thesis</h3>
+                                <p class="text-gray-600 text-sm md:text-base mb-2">January 2021 to December 2024</p>
+                                <p class="text-gray-700 text-sm md:text-base">
+                                    Analyzing Urban Sprawl and Assessing Municipal Solid Waste for Sustainable Waste
+                                    Management in Coimbatore City, India
+                                </p>
+                            </div>
+
+                            <div
+                                class="p-3 md:p-4 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors">
+                                <h3 class="text-base md:text-lg font-bold text-gray-900 mb-1">Indian Council of Social
+                                    Science Research</h3>
+                                <p class="text-gray-600 text-sm md:text-base mb-2">February 2024 - December 2024</p>
+                                <p class="text-gray-700 text-sm md:text-base">
+                                    Women at the Forefront: Assessing Female-Led Household Waste Management in
+                                    Coimbatore City, India
+                                </p>
+                            </div>
+
+                            <div
+                                class="p-3 md:p-4 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors">
+                                <h3 class="text-base md:text-lg font-bold text-gray-900 mb-1">SWM Project (CCMC -
+                                    Bharathiar University)</h3>
+                                <p class="text-gray-600 text-sm md:text-base mb-2">2020 - 2021</p>
+                                <p class="text-gray-700 text-sm md:text-base">
+                                    Municipal solid waste characterization and quantification as a measure towards
+                                    effective waste management for Coimbatore City Municipal Corporation
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Publications -->
+                <section id="publications" class="mb-8 md:mb-12">
+                    <div class="section-title">
+                        <i class="fas fa-book text-xl md:text-2xl"></i>
+                        <h2 class="text-xl md:text-2xl font-bold text-gray-900">Publications</h2>
+                    </div>
+
+                    <div class="section-card p-4 md:p-6">
+                        <div class="space-y-4 md:space-y-6">
+                            <div class="publication-item">
+                                <h3 class="text-base md:text-lg font-bold text-gray-900 mb-2">
+                                    Identifying high-vulnerable garbage accumulation areas in Coimbatore City, India: An
+                                    AHP-GIS approach for effective waste management
+                                </h3>
+                                <p class="text-gray-600 text-sm md:text-base mb-2">
+                                    <strong>Radhakrishnan, T.</strong>, Manimekalan, A., Ghosh, D., & Prasanna, R.
+                                    (2024). Environmental Science and Pollution Research, 31(14), 21797–21810.
+                                </p>
+                                <a href="https://doi.org/10.1007/s11356-024-32486-9"
+                                    class="text-blue-600 hover:text-blue-800 text-xs md:text-sm inline-flex items-center">
+                                    <i class="fas fa-external-link-alt mr-1"></i>
+                                    https://doi.org/10.1007/s11356-024-32486-9
+                                </a>
+                            </div>
+
+                            <div class="publication-item">
+                                <h3 class="text-base md:text-lg font-bold text-gray-900 mb-2">
+                                    Cognizing waste: A comprehensive quantitative and characterization analysis of
+                                    municipal solid waste in Coimbatore City Municipal Corporation, India
+                                </h3>
+                                <p class="text-gray-600 text-sm md:text-base mb-2">
+                                    <strong>Radhakrishnan, T.</strong>, Manimekalan, A., Ramaswamy, S. P., Kumar, V. N.,
+                                    Meena, P. S., & Pragasan, L. A. (2024). Journal of Material Cycles and Waste
+                                    Management.
+                                </p>
+                                <a href="https://doi.org/10.1007/s10163-024-01933-7"
+                                    class="text-blue-600 hover:text-blue-800 text-xs md:text-sm inline-flex items-center">
+                                    <i class="fas fa-external-link-alt mr-1"></i>
+                                    https://doi.org/10.1007/s10163-024-01933-7
+                                </a>
+                            </div>
+
+                            <div class="publication-item">
+                                <h3 class="text-base md:text-lg font-bold text-gray-900 mb-2">
+                                    Relationship Analysis between Rainfall and Vegetation Cover in Vaigai Dam Reserve
+                                    Forest, Tamil Nadu, India Using GEE
+                                </h3>
+                                <p class="text-gray-600 text-sm md:text-base mb-2">
+                                    Ramamoorthy, R., <strong>Radhakrishnan, T.</strong>, & Manimekalan, A. (2022).
+                                    Applied Ecology and Forestry Science, 5(1), 12–19.
+                                </p>
+                                <a href="https://doi.org/10.12691/aefs-5-1-3"
+                                    class="text-blue-600 hover:text-blue-800 text-xs md:text-sm inline-flex items-center">
+                                    <i class="fas fa-external-link-alt mr-1"></i> https://doi.org/10.12691/aefs-5-1-3
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Conference, ArcGIS StoryMap, Invited Talk, Training, Membership -->
+                <!-- <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 grid-cols-1-md-grid-cols-2"> -->
+                <!-- Conference -->
+                <section id="Conference" class="mb-8 md:mb-12">
+                    <div class="section-title">
+                        <i class="fas fa-microphone text-xl md:text-2xl"></i>
+                        <h2 class="text-xl md:text-2xl font-bold text-gray-900">Conference Presentations</h2>
+                    </div>
+
+                    <div class="section-card p-4 md:p-6 h-full">
+                        <div class="space-y-3 md:space-y-4">
+                            <div class="p-3 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors">
+                                <h3 class="font-bold text-gray-900 text-base md:text-lg">National Conference on Recent
+                                    Trends in Applications of Geoinformatics
+                                </h3>
+                                <p class="text-gray-600 text-xs md:text-sm">National • Dindigul, Tamil Nadu, India
+                                </p>
+                                <p class="text-gray-500 text-xs mt-1">March 2024</p>
+                                <p class="text-gray-700 text-xs md:text-sm mt-1">Assessing Women's Knowledge,
+                                    Attitudes, and Practices in Household Waste Management for Sustainable Solutions
+                                    in Coimbatore City, India</p>
+                            </div>
+
+                            <div class="p-3 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors">
+                                <h3 class="font-bold text-gray-900 text-base md:text-lg">Esri User Conference - 2023
+                                </h3>
+                                <p class="text-gray-600 text-xs md:text-sm">International • San Diego, California, USA
+                                </p>
+                                <p class="text-gray-500 text-xs mt-1">July 2023</p>
+                                <p class="text-gray-700 text-xs md:text-sm mt-1">AHP-GIS based Garbage Vulnerability
+                                    Zone Mapping: A Case Study from Coimbatore City, India</p>
+                            </div>
+
+                            <div class="p-3 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors">
+                                <h3 class="font-bold text-gray-900 text-base md:text-lg">National Conference on
+                                    Environment and Ecology, Bharathiar University</h3>
+                                <p class="text-gray-600 text-xs md:text-sm">National • Coimbatore, Tamil Nadu, India</p>
+                                <p class="text-gray-500 text-xs mt-1">October 2023</p>
+                                <p class="text-gray-700 text-xs md:text-sm mt-1">HarmonizeR: An Automated Raster Data
+                                    Harmonization Tool for ArcGIS Pro</p>
+                            </div>
+
+                            <div class="p-3 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors">
+                                <h3 class="font-bold text-gray-900 text-base md:text-lg">DST-PURSE Supported Satellite
+                                    Symposium, Bharathiar University</h3>
+                                <p class="text-gray-600 text-xs md:text-sm">National • Coimbatore, Tamil Nadu, India</p>
+                                <p class="text-gray-500 text-xs mt-1">September 2022</p>
+                                <p class="text-gray-700 text-xs md:text-sm mt-1">Potential of Sentinel- 1 and
+                                    Sentinel- 2 Data Combinations in Land Use and Land Cover Classification Using
+                                    Machine Learning Based Approach</p>
+                            </div>
+
+                            <div class="p-3 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors">
+                                <h3 class="font-bold text-gray-900 text-base md:text-lg">8th International Conference on
+                                    Environment and Ecology, Bharathiar University</h3>
+                                <p class="text-gray-600 text-xs md:text-sm">International • Coimbatore, Tamil Nadu,
+                                    India</p>
+                                <p class="text-gray-500 text-xs mt-1">August 2022</p>
+                                <p class="text-gray-700 text-xs md:text-sm mt-1">Analysis of Land Surface Temperature in
+                                    Different Land Use Land Cover Classes of Coimbatore City, Tamil Nadu</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ArcGIS StoryMap -->
+                <section id="StoryMap" class="mb-8 md:mb-12">
+                    <div class="section-title">
+                        <i class="fas fa-map text-xl md:text-2xl"></i>
+                        <h2 class="text-xl md:text-2xl font-bold text-gray-900">ArcGIS StoryMap</h2>
+                    </div>
+
+                    <div class="section-card p-4 md:p-6 h-full">
+                        <div class="p-3 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors">
+                            <h3 class="font-bold text-gray-900 text-base md:text-lg mb-2">Women at the Forefront</h3>
+                            <p class="text-gray-600 text-sm md:text-base mb-3">Assessing Knowledge, Attitudes, &
+                                Practices of Women in Household Waste Management in Coimbatore City, India</p>
+                            <p class="text-gray-500 text-xs md:text-sm mb-3">August 2024</p>
+                            <a href="https://arcg.is/05WaeD"
+                                class="text-blue-600 hover:text-blue-800 text-xs md:text-sm inline-flex items-center">
+                                <i class="fas fa-external-link-alt mr-1"></i> View StoryMap
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Invited Talk -->
+                <section id="invited-talk" class="mb-8 md:mb-12">
+                    <div class="section-title">
+                        <i class="fas fa-chalkboard-teacher text-xl md:text-2xl"></i>
+                        <h2 class="text-xl md:text-2xl font-bold text-gray-900">Invited Talks</h2>
+                    </div>
+
+                    <div class="section-card p-4 md:p-6 h-full">
+                        <div class="space-y-3 md:space-y-4">
+
+                            <div class="p-3 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors">
+                                <h3 class="font-bold text-gray-900 text-base md:text-lg">Workshop on Alternative Use of
+                                    Jute/Cloth Bags In Lieu of Plastic Bags</h3>
+                                <p class="text-gray-600 text-xs md:text-sm">4 TN BN NCC, 3⁄4 ALPHA COY NCC,
+                                    Government Arts College (Autonomous)</p>
+                                <p class="text-gray-500 text-xs mt-1">15 July 2024 • Coimbatore, Tamil Nadu, India</p>
+                            </div>
+
+                            <div class="p-3 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors">
+                                <h3 class="font-bold text-gray-900 text-base md:text-lg">GIS Techniques for Watershed
+                                    Delineation and Management</h3>
+                                <p class="text-gray-600 text-xs md:text-sm">Tamil Nadu Forest Academy, Tamil Nadu Forest
+                                    Department</p>
+                                <p class="text-gray-500 text-xs mt-1">18 March 2024 • Coimbatore, Tamil Nadu, India</p>
+                            </div>
+
+                            <div class="p-3 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors">
+                                <h3 class="font-bold text-gray-900 text-base md:text-lg">Advance Technique in Forest
+                                    Research: GIS Mapping of Forest</h3>
+                                <p class="text-gray-600 text-xs md:text-sm">Forest Genetic Division, Tamil Nadu Forest
+                                    Department</p>
+                                <p class="text-gray-500 text-xs mt-1">05 March 2024 • Coimbatore, Tamil Nadu, India</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Professional Development -->
+                <section id="training" class="mb-8 md:mb-12">
+                    <div class="section-title">
+                        <i class="fas fa-certificate text-xl md:text-2xl"></i>
+                        <h2 class="text-xl md:text-2xl font-bold text-gray-900">Professional Development</h2>
+                    </div>
+
+                    <div class="section-card p-4 md:p-6 h-full">
+                        <div class="space-y-3 md:space-y-4">
+                            <!-- First 3 courses (always visible) -->
+                            <div class="p-3 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors">
+                                <h3 class="font-bold text-gray-900 text-base md:text-lg">Machine Learning for Earth
+                                    Science</h3>
+                                <p class="text-gray-600 text-xs md:text-sm">NASA ARSET</p>
+                                <p class="text-gray-500 text-xs mt-1">May 2023</p>
+                            </div>
+
+                            <div class="p-3 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors">
+                                <h3 class="font-bold text-gray-900 text-base md:text-lg">Cartography - MOOC</h3>
+                                <p class="text-gray-600 text-xs md:text-sm">Esri</p>
+                                <p class="text-gray-500 text-xs mt-1">April 2023</p>
+                            </div>
+
+                            <div class="p-3 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors">
+                                <h3 class="font-bold text-gray-900 text-base md:text-lg">Species Distribution Modeling
+                                    with Remote Sensing</h3>
+                                <p class="text-gray-600 text-xs md:text-sm">NASA - ARSET</p>
+                                <p class="text-gray-500 text-xs mt-1">August 2021</p>
+                            </div>
+
+                            <!-- Remaining courses (hidden by default) -->
+                            <div id="more-courses" class="hidden space-y-3 md:space-y-4">
+                                <div class="p-3 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors">
+                                    <h3 class="font-bold text-gray-900 text-base md:text-lg">Using Google Earth Engine
+                                        for Land Monitoring Applications</h3>
+                                    <p class="text-gray-600 text-xs md:text-sm">NASA - ARSET</p>
+                                    <p class="text-gray-500 text-xs mt-1">June 2021</p>
+                                </div>
+
+                                <div class="p-3 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors">
+                                    <h3 class="font-bold text-gray-900 text-base md:text-lg">Introduction to Population
+                                        Grids and their Integration with Remote Sensing Data for Sustainable Development
+                                        and Disaster Management</h3>
+                                    <p class="text-gray-600 text-xs md:text-sm">NASA - ARSET</p>
+                                    <p class="text-gray-500 text-xs mt-1">April 2021</p>
+                                </div>
+
+                                <div class="p-3 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors">
+                                    <h3 class="font-bold text-gray-900 text-base md:text-lg">Use of Solar Induced
+                                        Fluorescence and LIDAR to Assess Vegetation Change and Vulnerability</h3>
+                                    <p class="text-gray-600 text-xs md:text-sm">NASA - ARSET</p>
+                                    <p class="text-gray-500 text-xs mt-1">March 2021</p>
+                                </div>
+
+                                <div class="p-3 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors">
+                                    <h3 class="font-bold text-gray-900 text-base md:text-lg">Agricultural Crop
+                                        Classification with Synthetic Aperture Radar and Optical Remote Sensing</h3>
+                                    <p class="text-gray-600 text-xs md:text-sm">NASA - ARSET</p>
+                                    <p class="text-gray-500 text-xs mt-1">October 2020</p>
+                                </div>
+
+                                <div class="p-3 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors">
+                                    <h3 class="font-bold text-gray-900 text-base md:text-lg">Introduction to NASA
+                                        Resources for Climate Change Applications</h3>
+                                    <p class="text-gray-600 text-xs md:text-sm">NASA - ARSET</p>
+                                    <p class="text-gray-500 text-xs mt-1">October 2020</p>
+                                </div>
+
+                                <div class="p-3 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors">
+                                    <h3 class="font-bold text-gray-900 text-base md:text-lg">R Programming A-Z™: R for
+                                        Data Science with Real Exercises!</h3>
+                                    <p class="text-gray-600 text-xs md:text-sm">Udemy</p>
+                                    <p class="text-gray-500 text-xs mt-1">October 2020</p>
+                                </div>
+
+                                <div class="p-3 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors">
+                                    <h3 class="font-bold text-gray-900 text-base md:text-lg">Python for Data Science and
+                                        Machine Learning Boot camp</h3>
+                                    <p class="text-gray-600 text-xs md:text-sm">Udemy</p>
+                                    <p class="text-gray-500 text-xs mt-1">September 2020</p>
+                                </div>
+
+                                <div class="p-3 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors">
+                                    <h3 class="font-bold text-gray-900 text-base md:text-lg">Geo-Processing and
+                                        Visualization on Web Platform</h3>
+                                    <p class="text-gray-600 text-xs md:text-sm">IIRS - ISRO</p>
+                                    <p class="text-gray-500 text-xs mt-1">February 2020</p>
+                                </div>
+
+                                <div class="p-3 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors">
+                                    <h3 class="font-bold text-gray-900 text-base md:text-lg">Geospatial Inputs for
+                                        Enabling Master Plan Formulation Under AMRUT Sub-scheme</h3>
+                                    <p class="text-gray-600 text-xs md:text-sm">IIRS - ISRO</p>
+                                    <p class="text-gray-500 text-xs mt-1">July 2018</p>
+                                </div>
+
+                                <div class="p-3 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors">
+                                    <h3 class="font-bold text-gray-900 text-base md:text-lg">Basics of Remote Sensing,
+                                        Geographical Information System, and Global Navigation Satellite System</h3>
+                                    <p class="text-gray-600 text-xs md:text-sm">IIRS - ISRO</p>
+                                    <p class="text-gray-500 text-xs mt-1">December 2017</p>
+                                </div>
+
+                                <div class="p-3 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors">
+                                    <h3 class="font-bold text-gray-900 text-base md:text-lg">Close Range Photogrammetry
+                                        and Terrestrial Laser Scanning</h3>
+                                    <p class="text-gray-600 text-xs md:text-sm">IIRS - ISRO</p>
+                                    <p class="text-gray-500 text-xs mt-1">December 2017</p>
+                                </div>
+
+                                <div class="p-3 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors">
+                                    <h3 class="font-bold text-gray-900 text-base md:text-lg">UAV Remote Sensing
+                                        Applications</h3>
+                                    <p class="text-gray-600 text-xs md:text-sm">IIRS - ISRO</p>
+                                    <p class="text-gray-500 text-xs mt-1">July 2017</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- View More Button -->
+                        <div class="mt-6 text-center">
+                            <button id="view-more-btn"
+                                class="bg-white text-primary border border-primary px-6 py-2 rounded-lg hover:bg-primary hover:text-white transition-colors font-medium shadow-sm">
+                                View More
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Membership -->
+                <section id="membership" class="mb-8 md:mb-12">
+                    <div class="section-title">
+                        <i class="fas fa-users text-xl md:text-2xl"></i>
+                        <h2 class="text-xl md:text-2xl font-bold text-gray-900">Membership</h2>
+                    </div>
+
+                    <div class="section-card p-4 md:p-6 h-full">
+                        <div class="space-y-3 md:space-y-4">
+                            <div class="p-3 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors">
+                                <h3 class="font-bold text-gray-900 text-base md:text-lg">Esri Young Professionals
+                                    Network (YPN)</h3>
+                                <p class="text-gray-600 text-xs md:text-sm">Ambassador</p>
+                                <p class="text-gray-500 text-xs mt-1">July 2023 - Present</p>
+                            </div>
+
+                            <div class="p-3 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors">
+                                <h3 class="font-bold text-gray-900 text-base md:text-lg">International Society for
+                                    Photogrammetry and Remote Sensing (ISPRS)</h3>
+                                <p class="text-gray-600 text-xs md:text-sm">Individual Membership</p>
+                                <p class="text-gray-500 text-xs mt-1">November 2022 - Present</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- </div> -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-12 md:py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="section-title justify-center text-center mb-12">
+                    <i class="fas fa-envelope text-xl md:text-2xl"></i>
+                    <h2 class="text-xl md:text-2xl font-bold text-gray-900">Get In Touch</h2>
+                    <p class="text-gray-600 mt-2 max-w-2xl mx-auto">Feel free to reach out for collaborations,
+                        opportunities, or just to say hello!</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                    <!-- Email Card -->
+                    <div
+                        class="section-card p-6 text-center group hover:transform hover:-translate-y-2 transition-all duration-300">
+                        <div
+                            class="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-envelope text-white text-xl"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-900 text-lg mb-2">Email</h3>
+                        <a href="mailto:rkthulasi98@gmail.com"
+                            class="text-gray-600 hover:text-blue-600 transition-colors break-all text-sm md:text-base">
+                            rkthulasi98@gmail.com
+                        </a>
+                        <p class="text-gray-500 text-sm mt-3">I'll respond within 24 hours</p>
+                    </div>
+
+                    <!-- Phone Card -->
+                    <div
+                        class="section-card p-6 text-center group hover:transform hover:-translate-y-2 transition-all duration-300">
+                        <div
+                            class="w-16 h-16 bg-gradient-to-br from-green-500 to-teal-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-phone text-white text-xl"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-900 text-lg mb-2">Phone</h3>
+                        <a href="tel:+919944777168"
+                            class="text-gray-600 hover:text-blue-600 transition-colors text-sm md:text-base">
+                            +91 9944777168
+                        </a>
+                        <p class="text-gray-500 text-sm mt-3">Available Mon-Fri, 9AM-6PM</p>
+                    </div>
+
+                    <!-- Location Card -->
+                    <div
+                        class="section-card p-6 text-center group hover:transform hover:-translate-y-2 transition-all duration-300">
+                        <div
+                            class="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-map-marker-alt text-white text-xl"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-900 text-lg mb-2">Location</h3>
+                        <p class="text-gray-600 text-sm md:text-base">Coimbatore</p>
+                        <p class="text-gray-500 text-sm mt-3">Tamil Nadu, India</p>
+                    </div>
+                </div>
+
+                <!-- Social Links & Resume -->
+                <div class="mt-12 text-center">
+                    <div class="section-card p-8 max-w-2xl mx-auto">
+                        <h3 class="font-bold text-gray-900 text-lg md:text-xl mb-6">Let's Connect</h3>
+
+                        <!-- Social Media Links -->
+                        <div class="flex justify-center space-x-6 mb-8">
+                            <a href="https://www.linkedin.com/in/rkthulasi"
+                                class="w-12 h-12 bg-blue-600 hover:bg-blue-700 rounded-full flex items-center justify-center text-white transition-colors group">
+                                <i class="fab fa-linkedin-in text-lg group-hover:scale-110 transition-transform"></i>
+                            </a>
+                            <a href="https://github.com/radhakrishnanthulasi"
+                                class="w-12 h-12 bg-gray-800 hover:bg-gray-900 rounded-full flex items-center justify-center text-white transition-colors group">
+                                <i class="fab fa-github text-lg group-hover:scale-110 transition-transform"></i>
+                            </a>
+                            <a href="https://x.com/Rk_thulasi_"
+                                class="w-12 h-12 bg-black hover:bg-gray-800 rounded-full flex items-center justify-center text-white transition-colors group">
+                                <!-- X (Twitter) SVG Logo -->
+                                <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path
+                                        d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                                </svg>
+                            </a>
+                            <a href="https://scholar.google.com/citations?user=e-mmes0AAAAJ&hl=en&oi=ao"
+                                class="w-12 h-12 bg-blue-500 hover:bg-blue-600 rounded-full flex items-center justify-center text-white transition-colors group">
+                                <i class="fab fa-google-scholar text-lg group-hover:scale-110 transition-transform"></i>
+                            </a>
+                            <a href="https://www.researchgate.net/profile/Radhakrishnan-Thulasi-2"
+                                class="w-12 h-12 bg-blue-600 hover:bg-blue-700 rounded-full flex items-center justify-center text-white transition-colors group">
+                                <i class="fab fa-researchgate text-lg group-hover:scale-110 transition-transform"></i>
+                            </a>
+                        </div>
+
+                        <!-- Resume Download -->
+                        <div class="border-t border-gray-200 pt-6 text-center">
+                            <a href="01_CV_Dr_Radhakrishnan_Thulasi.pdf" download="Your-Name-Resume.pdf"
+                                class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center justify-center mx-auto w-fit">
+                                <i class="fas fa-download mr-3"></i> Download Resume
+                            </a>
+                            <p class="text-gray-500 text-sm mt-3">Updated recently with all my latest projects</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Contact Note -->
+                <div class="text-center mt-8">
+                    <p class="text-gray-600 text-sm md:text-base">
+                        💡 <span class="font-medium">Quick response guaranteed!</span> Whether it's about GIS projects,
+                        remote sensing, or collaboration opportunities.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer with Visitor Stats -->
+    <footer class="bg-gray-900 text-white py-6 md:py-8">
+        <div class="container mx-auto px-4">
+            <div class="max-w-6xl mx-auto">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="mb-4 md:mb-0 text-center md:text-left">
+                        <p class="text-sm md:text-base">&copy; 2025 Dr. Radhakrishnan Thulasi. All rights reserved.</p>
+                    </div>
+
+                    <div class="flex flex-col items-center md:items-end">
+                        <div class="flex space-x-4 md:space-x-6 mb-3 md:mb-4">
+                            <a href="https://scholar.google.com/citations?user=e-mmes0AAAAJ&hl=en&oi=ao"
+                                class="text-gray-400 hover:text-white">
+                                <i class="fab fa-google text-lg md:text-xl"></i>
+                            </a>
+                            <a href="https://orcid.org/0000-0002-0015-606X" class="text-gray-400 hover:text-white">
+                                <i class="fab fa-orcid text-lg md:text-xl"></i>
+                            </a>
+                            <a href="https://www.linkedin.com/in/rkthulasi/" class="text-gray-400 hover:text-white">
+                                <i class="fab fa-linkedin text-lg md:text-xl"></i>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-white">
+                                <i class="fab fa-researchgate text-lg md:text-xl"></i>
+                            </a>
+                        </div>
+
+                        <div class="text-xs md:text-sm text-gray-400 text-center md:text-right">
+                            <span id="live-count">15</span> visitors online •
+                            <span id="total-visitors">1,247</span> total visitors
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const viewMoreBtn = document.getElementById('view-more-btn');
+            const moreCourses = document.getElementById('more-courses');
+
+            viewMoreBtn.addEventListener('click', function () {
+                if (moreCourses.classList.contains('hidden')) {
+                    // Show more courses
+                    moreCourses.classList.remove('hidden');
+                    viewMoreBtn.textContent = 'View Less';
+                } else {
+                    // Hide courses
+                    moreCourses.classList.add('hidden');
+                    viewMoreBtn.textContent = 'View More Courses';
+                }
+            });
+        });
+
+
+        // Mobile menu functionality
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const closeMenu = document.getElementById('closeMenu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+        });
+
+        closeMenu.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+
+                    // Update active nav link
+                    document.querySelectorAll('.nav-link').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                }
+            });
+        });
+
+        // Update active nav link on scroll
+        window.addEventListener('scroll', function () {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            let currentSection = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 120;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${currentSection}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Mock visitor counter (in a real implementation, this would connect to your API)
+        function updateVisitorCount() {
+            // This is a mock implementation
+            // In a real scenario, you would make a fetch request to your API Gateway endpoint
+            // that triggers a Lambda function to update and return the count from DynamoDB
+
+            // For demonstration, we'll use random numbers
+            const randomCount = Math.floor(Math.random() * 100) + 50;
+            document.getElementById('visitor-count').textContent = `${randomCount} visitors`;
+
+            // Update live and total counts in footer
+            const liveCount = Math.floor(Math.random() * 20) + 5;
+            const totalVisitors = Math.floor(Math.random() * 1000) + 1000;
+
+            document.getElementById('live-count').textContent = liveCount;
+            document.getElementById('total-visitors').textContent = totalVisitors.toLocaleString();
+        }
+
+        // Initialize visitor count
+        updateVisitorCount();
+
+        // Update visitor count every 30 seconds
+        setInterval(updateVisitorCount, 30000);
+    </script>
+</body>
+
+</html>
